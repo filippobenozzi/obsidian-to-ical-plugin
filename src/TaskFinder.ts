@@ -32,10 +32,10 @@ export class TaskFinder {
       .map((lineAndHeading) => {
         // If the Day Planner plugin format is enabled and the line contains at least one time,
         // then we need to go back up the lines to find the heading which has the date.
-        if (settings.isDayPlannerPluginFormatEnabled && headings?.hasHeadings()) {
+        const dateRegExp = /\b(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{1,2})\b/gi;
+        if (settings.isDayPlannerPluginFormatEnabled && dateRegExp.test(file.basename)) {
           if (this.hasTimes(lineAndHeading.markdownLine)) {
-            const heading = headings.getHeadingForMarkdownLineNumber(lineAndHeading.markdownLineNumber);
-            dateOverride = heading?.getDate ?? null;
+            dateOverride = new Date(file.basename);
           }
         }
 

@@ -26,12 +26,12 @@ export function getTaskStatusFromMarkdown(markdown: string): TaskStatus {
 export function getTaskStatusEmoji(taskStatus: TaskStatus): string {
   switch (taskStatus) {
     case TaskStatus.Cancelled:
-      return '🚫';
+      return '';
     case TaskStatus.Done:
-      return '✅';
+      return '';
     case TaskStatus.InProgress:
-      return '🏃';
+      return '';
     default:
-      return '🔲';
+      return '';
   }
 }
