@@ -36,6 +36,9 @@ export class TaskFinder {
         if (settings.isDayPlannerPluginFormatEnabled && dateRegExp.test(file.basename)) {
           if (this.hasTimes(lineAndHeading.markdownLine)) {
             dateOverride = new Date(file.basename);
+            const timeRegExp = /\b((?<!\d{4}-\d{2}-)\d{1,2}:(\d{2})(?::\d{2})?\s*(?:[ap][m])?|(?<!\d{4}-\d{2}-)\d{1,2}\s*[ap][m])\b/gi;
+            lineAndHeading.markdownLine = lineAndHeading.markdownLine.replace(timeRegExp, '');
+            lineAndHeading.markdownLine = lineAndHeading.markdownLine.replace('- [ ]  - ', '- [ ] ');
           }
         }
 
@@ -52,6 +55,9 @@ export class TaskFinder {
             return null;
           }
         }
+
+        // Remove time from task id Day Planner
+        
 
         return createTaskFromLine(lineAndHeading.markdownLine, fileUri, dateOverride);
       })
